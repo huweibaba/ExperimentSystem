@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.byk.experimentsystem.mapper.Option_logMapper" >
+  <resultMap id="BaseResultMap" type="com.byk.experimentsystem.entity.Option_log" >
+    <result column="id" property="id" jdbcType="INTEGER" />
+    <result column="option" property="option" jdbcType="VARCHAR" />
+    <result column="sql_str" property="sqlStr" jdbcType="VARCHAR" />
+    <result column="opt_table_name" property="optTableName" jdbcType="VARCHAR" />
+    <result column="createdAt" property="createdat" jdbcType="TIMESTAMP" />
+    <result column="opt_uid" property="optUid" jdbcType="INTEGER" />
+    <result column="opt_tid" property="optTid" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, option, sql_str, opt_table_name, createdAt, opt_uid, opt_tid
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.byk.experimentsystem.entity.Option_logExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from option_log
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.byk.experimentsystem.entity.Option_logExample" >
+    delete from option_log
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.byk.experimentsystem.entity.Option_log" >
+    insert into option_log (id, option, sql_str, 
+      opt_table_name, createdAt, opt_uid, 
+      opt_tid)
+    values (#{id,jdbcType=INTEGER}, #{option,jdbcType=VARCHAR}, #{sqlStr,jdbcType=VARCHAR}, 
+      #{optTableName,jdbcType=VARCHAR}, #{createdat,jdbcType=TIMESTAMP}, #{optUid,jdbcType=INTEGER}, 
+      #{optTid,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.byk.experimentsystem.entity.Option_log" >
+    insert into option_log
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="option != null" >
+        option,
+      </if>
+      <if test="sqlStr != null" >
+        sql_str,
+      </if>
+      <if test="optTableName != null" >
+        opt_table_name,
+      </if>
+      <if test="createdat != null" >
+        createdAt,
+      </if>
+      <if test="optUid != null" >
+        opt_uid,
+      </if>
+      <if test="optTid != null" >
+        opt_tid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="option != null" >
+        #{option,jdbcType=VARCHAR},
+      </if>
+      <if test="sqlStr != null" >
+        #{sqlStr,jdbcType=VARCHAR},
+      </if>
+      <if test="optTableName != null" >
+        #{optTableName,jdbcType=VARCHAR},
+      </if>
+      <if test="createdat != null" >
+        #{createdat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="optUid != null" >
+        #{optUid,jdbcType=INTEGER},
+      </if>
+      <if test="optTid != null" >
+        #{optTid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.byk.experimentsystem.entity.Option_logExample" resultType="java.lang.Integer" >
+    select count(*) from option_log
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update option_log
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.option != null" >
+        option = #{record.option,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sqlStr != null" >
+        sql_str = #{record.sqlStr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.optTableName != null" >
+        opt_table_name = #{record.optTableName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createdat != null" >
+        createdAt = #{record.createdat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.optUid != null" >
+        opt_uid = #{record.optUid,jdbcType=INTEGER},
+      </if>
+      <if test="record.optTid != null" >
+        opt_tid = #{record.optTid,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update option_log
+    set id = #{record.id,jdbcType=INTEGER},
+      option = #{record.option,jdbcType=VARCHAR},
+      sql_str = #{record.sqlStr,jdbcType=VARCHAR},
+      opt_table_name = #{record.optTableName,jdbcType=VARCHAR},
+      createdAt = #{record.createdat,jdbcType=TIMESTAMP},
+      opt_uid = #{record.optUid,jdbcType=INTEGER},
+      opt_tid = #{record.optTid,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

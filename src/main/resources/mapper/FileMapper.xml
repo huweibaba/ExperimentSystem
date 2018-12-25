@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.byk.experimentsystem.mapper.FileMapper" >
+  <resultMap id="BaseResultMap" type="com.byk.experimentsystem.entity.File" >
+    <result column="id" property="id" jdbcType="INTEGER" />
+    <result column="file_name" property="fileName" jdbcType="VARCHAR" />
+    <result column="file_path" property="filePath" jdbcType="VARCHAR" />
+    <result column="file_type" property="fileType" jdbcType="VARCHAR" />
+    <result column="file_size" property="fileSize" jdbcType="INTEGER" />
+    <result column="createdAt" property="createdat" jdbcType="TIMESTAMP" />
+    <result column="updatedAt" property="updatedat" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, file_name, file_path, file_type, file_size, createdAt, updatedAt
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.byk.experimentsystem.entity.FileExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from file
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.byk.experimentsystem.entity.FileExample" >
+    delete from file
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.byk.experimentsystem.entity.File" >
+    insert into file (id, file_name, file_path, 
+      file_type, file_size, createdAt, 
+      updatedAt)
+    values (#{id,jdbcType=INTEGER}, #{fileName,jdbcType=VARCHAR}, #{filePath,jdbcType=VARCHAR}, 
+      #{fileType,jdbcType=VARCHAR}, #{fileSize,jdbcType=INTEGER}, #{createdat,jdbcType=TIMESTAMP}, 
+      #{updatedat,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.byk.experimentsystem.entity.File" >
+    insert into file
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="fileName != null" >
+        file_name,
+      </if>
+      <if test="filePath != null" >
+        file_path,
+      </if>
+      <if test="fileType != null" >
+        file_type,
+      </if>
+      <if test="fileSize != null" >
+        file_size,
+      </if>
+      <if test="createdat != null" >
+        createdAt,
+      </if>
+      <if test="updatedat != null" >
+        updatedAt,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="fileName != null" >
+        #{fileName,jdbcType=VARCHAR},
+      </if>
+      <if test="filePath != null" >
+        #{filePath,jdbcType=VARCHAR},
+      </if>
+      <if test="fileType != null" >
+        #{fileType,jdbcType=VARCHAR},
+      </if>
+      <if test="fileSize != null" >
+        #{fileSize,jdbcType=INTEGER},
+      </if>
+      <if test="createdat != null" >
+        #{createdat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedat != null" >
+        #{updatedat,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.byk.experimentsystem.entity.FileExample" resultType="java.lang.Integer" >
+    select count(*) from file
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update file
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.fileName != null" >
+        file_name = #{record.fileName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.filePath != null" >
+        file_path = #{record.filePath,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fileType != null" >
+        file_type = #{record.fileType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fileSize != null" >
+        file_size = #{record.fileSize,jdbcType=INTEGER},
+      </if>
+      <if test="record.createdat != null" >
+        createdAt = #{record.createdat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updatedat != null" >
+        updatedAt = #{record.updatedat,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update file
+    set id = #{record.id,jdbcType=INTEGER},
+      file_name = #{record.fileName,jdbcType=VARCHAR},
+      file_path = #{record.filePath,jdbcType=VARCHAR},
+      file_type = #{record.fileType,jdbcType=VARCHAR},
+      file_size = #{record.fileSize,jdbcType=INTEGER},
+      createdAt = #{record.createdat,jdbcType=TIMESTAMP},
+      updatedAt = #{record.updatedat,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+
+  <insert id="insertFiles"  useGeneratedKeys="true" keyProperty="id" parameterType="java.util.List">
+
+
+    insert into file (file_name,file_path,file_type,file_size)
+    values
+    <foreach collection="list" item="item" index="index" separator="," close=";">
+      (#{item.fileName,jdbcType=VARCHAR}, #{item.filePath,jdbcType=VARCHAR}, #{item.fileType,jdbcType=VARCHAR},#{item.fileSize})
+    </foreach>
+  </insert>
+
+</mapper>

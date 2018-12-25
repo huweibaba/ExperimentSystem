@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.byk.experimentsystem.mapper.Exp_commitMapper" >
+  <resultMap id="BaseResultMap" type="com.byk.experimentsystem.entity.Exp_commit" >
+    <result column="id" property="id" jdbcType="INTEGER" />
+    <result column="createdAt" property="createdat" jdbcType="TIMESTAMP" />
+    <result column="updatedAt" property="updatedat" jdbcType="TIMESTAMP" />
+    <result column="step" property="step" jdbcType="INTEGER" />
+    <result column="answer" property="answer" jdbcType="VARCHAR" />
+    <result column="answer_img_id" property="answerImgId" jdbcType="INTEGER" />
+    <result column="exp_rid" property="expRid" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, createdAt, updatedAt, step, answer, answer_img_id, exp_rid
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.byk.experimentsystem.entity.Exp_commitExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from exp_commit
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.byk.experimentsystem.entity.Exp_commitExample" >
+    delete from exp_commit
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.byk.experimentsystem.entity.Exp_commit" >
+    insert into exp_commit (id, createdAt, updatedAt, 
+      step, answer, answer_img_id, 
+      exp_rid)
+    values (#{id,jdbcType=INTEGER}, #{createdat,jdbcType=TIMESTAMP}, #{updatedat,jdbcType=TIMESTAMP}, 
+      #{step,jdbcType=INTEGER}, #{answer,jdbcType=VARCHAR}, #{answerImgId,jdbcType=INTEGER}, 
+      #{expRid,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.byk.experimentsystem.entity.Exp_commit" >
+    insert into exp_commit
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="createdat != null" >
+        createdAt,
+      </if>
+      <if test="updatedat != null" >
+        updatedAt,
+      </if>
+      <if test="step != null" >
+        step,
+      </if>
+      <if test="answer != null" >
+        answer,
+      </if>
+      <if test="answerImgId != null" >
+        answer_img_id,
+      </if>
+      <if test="expRid != null" >
+        exp_rid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="createdat != null" >
+        #{createdat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedat != null" >
+        #{updatedat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="step != null" >
+        #{step,jdbcType=INTEGER},
+      </if>
+      <if test="answer != null" >
+        #{answer,jdbcType=VARCHAR},
+      </if>
+      <if test="answerImgId != null" >
+        #{answerImgId,jdbcType=INTEGER},
+      </if>
+      <if test="expRid != null" >
+        #{expRid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.byk.experimentsystem.entity.Exp_commitExample" resultType="java.lang.Integer" >
+    select count(*) from exp_commit
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update exp_commit
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.createdat != null" >
+        createdAt = #{record.createdat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updatedat != null" >
+        updatedAt = #{record.updatedat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.step != null" >
+        step = #{record.step,jdbcType=INTEGER},
+      </if>
+      <if test="record.answer != null" >
+        answer = #{record.answer,jdbcType=VARCHAR},
+      </if>
+      <if test="record.answerImgId != null" >
+        answer_img_id = #{record.answerImgId,jdbcType=INTEGER},
+      </if>
+      <if test="record.expRid != null" >
+        exp_rid = #{record.expRid,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update exp_commit
+    set id = #{record.id,jdbcType=INTEGER},
+      createdAt = #{record.createdat,jdbcType=TIMESTAMP},
+      updatedAt = #{record.updatedat,jdbcType=TIMESTAMP},
+      step = #{record.step,jdbcType=INTEGER},
+      answer = #{record.answer,jdbcType=VARCHAR},
+      answer_img_id = #{record.answerImgId,jdbcType=INTEGER},
+      exp_rid = #{record.expRid,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+
+
+
+</mapper>

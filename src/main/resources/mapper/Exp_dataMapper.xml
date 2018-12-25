@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.byk.experimentsystem.mapper.Exp_dataMapper">
+  <resultMap id="BaseResultMap" type="com.byk.experimentsystem.entity.Exp_data">
+    <result column="id" jdbcType="INTEGER" property="id" />
+    <result column="createdAt" jdbcType="TIMESTAMP" property="createdat" />
+    <result column="updatedAt" jdbcType="TIMESTAMP" property="updatedat" />
+    <result column="exp_id" jdbcType="INTEGER" property="expId" />
+    <result column="file_user_id" jdbcType="INTEGER" property="fileUserId" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, createdAt, updatedAt, exp_id, file_user_id
+  </sql>
+  <select id="selectByExample" parameterType="com.byk.experimentsystem.entity.Exp_dataExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from exp_data
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.byk.experimentsystem.entity.Exp_dataExample">
+    delete from exp_data
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.byk.experimentsystem.entity.Exp_data">
+    insert into exp_data (id, createdAt, updatedAt, 
+      exp_id, file_user_id)
+    values (#{id,jdbcType=INTEGER}, #{createdat,jdbcType=TIMESTAMP}, #{updatedat,jdbcType=TIMESTAMP}, 
+      #{expId,jdbcType=INTEGER}, #{fileUserId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.byk.experimentsystem.entity.Exp_data">
+    insert into exp_data
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="createdat != null">
+        createdAt,
+      </if>
+      <if test="updatedat != null">
+        updatedAt,
+      </if>
+      <if test="expId != null">
+        exp_id,
+      </if>
+      <if test="fileUserId != null">
+        file_user_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="createdat != null">
+        #{createdat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedat != null">
+        #{updatedat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="expId != null">
+        #{expId,jdbcType=INTEGER},
+      </if>
+      <if test="fileUserId != null">
+        #{fileUserId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.byk.experimentsystem.entity.Exp_dataExample" resultType="java.lang.Integer">
+    select count(*) from exp_data
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update exp_data
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.createdat != null">
+        createdAt = #{record.createdat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updatedat != null">
+        updatedAt = #{record.updatedat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.expId != null">
+        exp_id = #{record.expId,jdbcType=INTEGER},
+      </if>
+      <if test="record.fileUserId != null">
+        file_user_id = #{record.fileUserId,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update exp_data
+    set id = #{record.id,jdbcType=INTEGER},
+      createdAt = #{record.createdat,jdbcType=TIMESTAMP},
+      updatedAt = #{record.updatedat,jdbcType=TIMESTAMP},
+      exp_id = #{record.expId,jdbcType=INTEGER},
+      file_user_id = #{record.fileUserId,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+
+  <insert id="insertRelations" keyProperty="id" parameterType="java.util.Map" useGeneratedKeys="true">
+
+
+    insert into exp_data (exp_id,file_user_id)
+    values
+    <!--item就是List里每一项的对象名，要用","分割每一条数据，最后要";"结尾-->
+    <foreach close=";" collection="file_userList" index="index" item="item" separator=",">
+      (#{experiment.id}, #{item.id})
+    </foreach>
+  </insert>
+</mapper>
