@@ -10,6 +10,7 @@ public class JSONUtil {
     public static <T> T parseMap(Map<String,Object> map, Class<T> tClass) throws Exception {
         String json=objectMapper.writeValueAsString(map);
         T t=objectMapper.readValue(json,tClass);
+        System.out.println("hello world");
         return t;
     }
 
